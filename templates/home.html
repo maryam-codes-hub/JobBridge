@@ -1,0 +1,28 @@
+
+<a href="{% url 'job_list' %}">Browse Jobs</a>
+<section>
+    <h2>Latest Job Opportunities</h2>
+
+    {% for job in latest_jobs %}
+
+        <div>
+            <h3>{{ job.title }}</h3>
+
+            <p>Company: {{ job.employer.profile.company_name }}</p>
+
+            <p>Location: {{ job.location }}</p>
+
+            <p>Job Type: {{ job.get_job_type_display }}</p>
+
+            <p>Salary: {{ job.salary }}</p>
+        </div>
+
+        <hr>
+
+    {% empty %}
+
+        <p>No jobs available right now.</p>
+
+    {% endfor %}
+
+</section>

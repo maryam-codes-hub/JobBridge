@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JobBridge - Signup</title>
+</head>
+<body>
+
+    <h1>Create Your JobBridge Account</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Create Account</button>
+
+    </form>
+
+</body>
+</html>

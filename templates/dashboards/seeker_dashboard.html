@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Seeker Dashboard</title>
+</head>
+<body>
+
+    <h1>Welcome, Job Seeker!</h1>
+
+    <h3>Job Seeker Dashboard</h3>
+
+    <p>Here you can browse jobs and manage your applications.</p>
+
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+
+</body>
+</html>
