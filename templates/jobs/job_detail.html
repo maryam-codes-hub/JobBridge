@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ job.title }} - JobBridge</title>
+</head>
+<body>
+
+    <h1>{{ job.title }}</h1>
+
+    <h3>{{ job.employer.profile.company_name }}</h3>
+
+    <p>Location: {{ job.location }}</p>
+
+    <p>Category: {{ job.category }}</p>
+
+    <p>Job Type: {{ job.get_job_type_display }}</p>
+
+    <p>Salary: {{ job.salary }}</p>
+
+    <h2>Job Description</h2>
+    <p>{{ job.description }}</p>
+
+    <h2>Requirements</h2>
+    <p>{{ job.requirements }}</p>
+
+    <p>Deadline: {{ job.deadline|default:"Not specified" }}</p>
+
+    <a href="{% url 'job_list' %}">Back to Jobs</a>
+    <a href="{% url 'apply_job' id=job.id %}">
+    Apply Now
+</a>
+
+</body>
+</html>

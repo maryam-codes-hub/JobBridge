@@ -1,27 +1,45 @@
 
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>JobBridge - Login</title>
+
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 </head>
 <body>
 
-    <h1>Login to JobBridge</h1>
+    <div class="auth-container">
 
-    <form method="POST">
+        <div class="auth-card">
 
-        {% csrf_token %}
+            <h1>Welcome Back!</h1>
 
-        {{ form.as_p }}
+            <p>Login to continue your JobBridge journey.</p>
 
-        <button type="submit">Login</button>
+            <form method="POST">
+                {% csrf_token %}
 
-    </form>
+                {{ form.as_p }}
 
-    <p>
-        Don't have an account?
-        <a href="{% url 'signup' %}">Signup</a>
-    </p>
+                <button type="submit">Login</button>
+            </form>
+
+            <p class="auth-link">
+                Don't have an account?
+                <a href="{% url 'signup' %}">Create Account</a>
+            </p>
+
+            <a href="{% url 'home' %}" class="back-home">
+                Back to Home
+            </a>
+
+        </div>
+
+    </div>
 
 </body>
 </html>

@@ -1,0 +1,264 @@
+
+/* Global Styling */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+section {
+    padding: 60px 8%;
+}
+
+
+/* Navbar Styling */
+
+nav {
+    background-color: #ffffff;
+    padding: 18px 8%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h2 {
+    color: #2563eb;
+    font-size: 26px;
+}
+
+.navbar a {
+    margin-left: 25px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.navbar a:hover {
+    color: #2563eb;
+}
+
+
+/* Hero Section */
+
+section:first-of-type {
+    background-color: #eff6ff;
+    text-align: center;
+    padding: 100px 8%;
+}
+
+section:first-of-type h1 {
+    font-size: 42px;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+}
+
+section:first-of-type p {
+    font-size: 18px;
+    color: #475569;
+    margin-bottom: 30px;
+}
+
+section:first-of-type a {
+    display: inline-block;
+    background-color: #2563eb;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+    margin: 8px;
+    font-weight: bold;
+}
+
+section:first-of-type a:hover {
+    background-color: #1d4ed8;
+}
+
+/* ==============================
+   HOW IT WORKS SECTION
+================================= */
+
+section:nth-of-type(2) {
+    background-color: #ffffff;
+    text-align: center;
+}
+
+section:nth-of-type(2) h2 {
+    font-size: 32px;
+    color: #1e3a8a;
+    margin-bottom: 40px;
+}
+
+section:nth-of-type(2) div {
+    display: inline-block;
+    vertical-align: top;
+    width: 40%;
+    min-height: 190px;
+    margin: 15px;
+    padding: 30px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+section:nth-of-type(2) h3 {
+    color: #2563eb;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+section:nth-of-type(2) p {
+    color: #475569;
+    margin-bottom: 20px;
+}
+
+/* How It Works Buttons */
+
+section:nth-of-type(2) a {
+    display: inline-block;
+    background-color: #2563eb;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+section:nth-of-type(2) a:hover {
+    background-color: #1d4ed8;
+}
+
+
+/* ==============================
+   FOOTER SECTION
+================================= */
+
+footer {
+    background-color: #0f172a;
+    color: #ffffff;
+    padding: 50px 8% 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+footer div {
+    flex: 1;
+    min-width: 180px;
+}
+
+footer h2 {
+    color: #60a5fa;
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+footer h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+footer p {
+    color: #cbd5e1;
+    margin-bottom: 10px;
+}
+
+footer a {
+    display: block;
+    color: #cbd5e1;
+    margin-bottom: 10px;
+}
+
+footer a:hover {
+    color: #60a5fa;
+}
+
+footer hr {
+    width: 100%;
+    border: 0;
+    border-top: 1px solid #334155;
+}
+
+footer > p {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+/* ==============================
+   RESPONSIVE DESIGN
+================================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .navbar a {
+        margin: 5px;
+        display: inline-block;
+    }
+
+    section:first-of-type {
+        padding: 65px 5%;
+    }
+
+    section:first-of-type h1 {
+        font-size: 30px;
+    }
+
+    section:nth-of-type(2) div {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    footer {
+        flex-direction: column;
+    }
+}
+/* Navbar Logout Button */
+
+.navbar > div {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.logout-form {
+    display: inline-flex;
+    margin: 0;
+}
+
+.logout-form button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.logout-form button:hover {
+    background-color: #1d4ed8;
+}

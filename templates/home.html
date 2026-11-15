@@ -1,28 +1,133 @@
 
-<a href="{% url 'job_list' %}">Browse Jobs</a>
-<section>
-    <h2>Latest Job Opportunities</h2>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>JobBridge - Find Your Dream Job</title>
+</head>
+<body>
 
-    {% for job in latest_jobs %}
+    <!-- Navbar -->
+    <nav>
+        <div class="navbar">
+            <h2>JobBridge</h2>
 
-        <div>
-            <h3>{{ job.title }}</h3>
+            <div>
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'job_list' %}">Browse Jobs</a>
 
-            <p>Company: {{ job.employer.profile.company_name }}</p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}">Dashboard</a>
 
-            <p>Location: {{ job.location }}</p>
-
-            <p>Job Type: {{ job.get_job_type_display }}</p>
-
-            <p>Salary: {{ job.salary }}</p>
+                    <form method="POST" action="{% url 'logout' %}" class="logout-form">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'signup' %}">Sign Up</a>
+                {% endif %}
+            </div>
         </div>
+    </nav>
 
-        <hr>
 
-    {% empty %}
+    <!-- Hero Section -->
+    <section>
+        <h1>Find Your Dream Job with JobBridge</h1>
 
-        <p>No jobs available right now.</p>
+        <p>
+            Discover opportunities, connect with employers,
+            and take the next step in your career.
+        </p>
 
-    {% endfor %}
+        <a href="{% url 'job_list' %}">Explore Jobs</a>
+        <a href="{% url 'signup' %}">Get Started</a>
+    </section>
 
+
+    <!-- Latest Jobs Section
+    <section>
+        <h2>Latest Job Opportunities</h2>
+
+        {% for job in latest_jobs %}
+            <div>
+                <h3>{{ job.title }}</h3>
+
+                <p>
+                    Company: {{ job.employer.profile.company_name }}
+                </p>
+
+                <p>Location: {{ job.location }}</p>
+
+                <p>Job Type: {{ job.get_job_type_display }}</p>
+
+                <p>Salary: {{ job.salary }}</p>
+
+                <a href="{% url 'job_detail' id=job.id %}">
+                    View Details
+                </a>
+            </div>
+            <hr>
+        {% empty %}
+            <p>No jobs available right now.</p>
+        {% endfor %}
+    </section> -->
+
+
+<!-- How It Works Section -->
+<section>
+    <h2>How JobBridge Works</h2>
+
+    <div>
+        <h3>For Job Seekers</h3>
+        <p>Create your account, explore job opportunities,
+           and apply for jobs that match your skills.</p>
+    </div>
+    <a href="{% url 'signup' %}">Join as Job Seeker</a>
+
+    <div>
+        <h3>For Employers</h3>
+        <p>Create your employer account, post job opportunities,
+           and find the right candidates for your company.</p>
+    </div>
+    <a href="{% url 'signup' %}">Join as Employer</a>
 </section>
+
+
+   
+<!-- Footer Section -->
+<footer>
+    <div>
+        <h2>JobBridge</h2>
+        <p>
+            Connecting talented people with great career opportunities.
+        </p>
+    </div>
+
+    <div>
+        <h3>Quick Links</h3>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'job_list' %}">Browse Jobs</a>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}">Sign Up</a>
+    </div>
+
+    <div>
+        <h3>For Users</h3>
+        <p>Job Seekers</p>
+        <p>Employers</p>
+    </div>
+
+    <hr>
+
+    <p>© 2026 JobBridge. All rights reserved.</p>
+</footer>
+
+
+</body>
+</html>
+    
