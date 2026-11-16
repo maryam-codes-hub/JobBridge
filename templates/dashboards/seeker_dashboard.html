@@ -1,21 +1,86 @@
 
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Job Seeker Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JobBridge - Job Seeker Dashboard</title>
+
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 </head>
+
 <body>
 
-    <h1>Welcome, Job Seeker!</h1>
+    <!-- Navbar -->
+    <nav class="dashboard-navbar">
+        <h2 class="logo">JobBridge</h2>
 
-    <h3>Job Seeker Dashboard</h3>
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'job_list' %}">Explore Jobs</a>
 
-    <p>Here you can browse jobs and manage your applications.</p>
+            <form method="POST" action="{% url 'logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </nav>
 
-    <form method="POST" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
+    <main class="dashboard-container">
+
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            {% if user.first_name %}
+                <h1>Welcome back, {{ user.first_name }}!</h1>
+            {% else %}
+                <h1>Welcome back, {{ user.username }}!</h1>
+            {% endif %}
+
+            <p>
+                Manage your job search, explore new opportunities
+                and track your applications.
+            </p>
+        </section>
+
+        <!-- Statistics -->
+        <section class="stats-section">
+
+            <div class="stat-card">
+                <h3>Available Jobs</h3>
+                <h2>{{ total_jobs }}</h2>
+                <p>Explore current opportunities</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>My Applications</h3>
+                <h2>{{ total_applications }}</h2>
+                <p>Track your submitted applications</p>
+            </div>
+
+        </section>
+
+        <!-- Explore Jobs -->
+        <section class="explore-section">
+            <div>
+                <h2>Find Your Next Opportunity</h2>
+
+                <p>
+                    Discover exciting career opportunities
+                    and take the next step in your professional journey.
+                </p>
+
+                <a href="{% url 'job_list' %}" class="explore-button">
+                    Browse All Jobs
+                </a>
+            </div>
+        </section>
+
+    </main>
 
 </body>
 </html>
+
+
