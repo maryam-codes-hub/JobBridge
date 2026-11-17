@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Applications - JobBridge</title>
+</head>
+
+<body>
+
+    <h1>Applications for {{ job.title }}</h1>
+
+    <h3>
+        Company:
+        {{ job.employer.profile.company_name|default:job.employer.username }}
+    </h3>
+
+    {% for application in applications %}
+
+        <div class="application-card">
+
+            <h2>{{ application.applicant.username }}</h2>
+
+            <p>
+                Applied On:
+                {{ application.applied_at|date:"d M Y" }}
+            </p>
+
+            <p>
+                Status:
+                {{ application.get_status_display }}
+            </p>
+
+            <h4>Cover Letter</h4>
+
+            <p>{{ application.cover_letter|linebreaks }}</p>
+
+        </div>
+
+    {% empty %}
+
+        <p>No applications received for this job yet.</p>
+
+    {% endfor %}
+
+</body>
+</html>

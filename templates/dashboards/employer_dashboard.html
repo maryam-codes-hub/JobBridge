@@ -1,20 +1,175 @@
+
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Employer Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employer Dashboard | JobBridge</title>
+
+    <link rel="stylesheet" href="{% static 'css/employer_dashboard.css' %}">
 </head>
+
 <body>
 
-    <h1>Welcome, Employer!</h1>
+    <!-- Navigation -->
+    <nav class="navbar">
 
-    <h3>Employer Dashboard</h3>
+        <h2 class="logo">JobBridge</h2>
 
-    <p>Here you can manage your jobs and applicants.</p>
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'job_list' %}">Explore Jobs</a>
+            <a href="{% url 'dashboard' %}" class="active">Dashboard</a>
 
-    <form method="POST" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+
+    </nav>
+
+
+    <main class="dashboard-container">
+
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+
+            <div>
+                <p class="welcome-label">EMPLOYER PANEL</p>
+
+                <h1>
+                    Welcome,
+                    {{ user.first_name|default:user.username }}!
+                </h1>
+
+                <p>Manage your job postings and find the right candidates.</p>
+            </div>
+
+            <div class="company-info">
+                <span>Company</span>
+                <h3>
+                    {{ user.profile.company_name|default:user.username }}
+                </h3>
+            </div>
+
+        </section>
+
+
+        <!-- Statistics -->
+        <section class="stats-section">
+
+            <div class="stat-card">
+                <div class="stat-icon">💼</div>
+                <div>
+                    <h2>{{ total_jobs }}</h2>
+                    <p>Total Posted Jobs</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📩</div>
+                <div>
+                    <h2>{{ total_applications }}</h2>
+                    <p>Received Applications</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- My Posted Jobs -->
+        <section class="my-jobs-section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>My Posted Jobs</h2>
+                    <p>Manage your job postings and review applicants.</p>
+                </div>
+            </div>
+
+
+            <div class="jobs-container">
+
+                {% for job in my_jobs %}
+
+                    <div class="job-card">
+
+                        <div class="job-card-top">
+
+                            <div>
+                                <h3>{{ job.title }}</h3>
+                                <p class="job-category">
+                                    {{ job.category }}
+                                </p>
+                            </div>
+
+                            <span class="job-status {{ job.status }}">
+                                {{ job.get_status_display }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="job-details">
+
+                            <p>
+                                <strong>Location:</strong>
+                                {{ job.location }}
+                            </p>
+
+                            <p>
+                                <strong>Job Type:</strong>
+                                {{ job.get_job_type_display }}
+                            </p>
+
+                            <p>
+                                <strong>Salary:</strong>
+                                {{ job.salary|default:"Not specified" }}
+                            </p>
+
+                        </div>
+
+
+                        <div class="application-info">
+
+                            <span>
+                                📩 {{ job.applications.count }} Applications Received
+                            </span>
+
+                            <a href="{% url 'job_applications' id=job.id %}"
+                               class="view-btn">
+                                View Applications →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="empty-state">
+
+                        <h3>No Jobs Posted Yet</h3>
+
+                        <p>
+                            You haven't posted any jobs.
+                            Your posted jobs will appear here.
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+    </main>
 
 </body>
 </html>

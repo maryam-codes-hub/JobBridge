@@ -1,5 +1,5 @@
 
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404,redirect
 from .forms import SignUpForm
 from django.contrib.auth.decorators import login_required
 from jobs.models import Job
@@ -37,9 +37,18 @@ def dashboard(request):
     profile = request.user.profile
 
     if profile.role == 'employer':
+        my_jobs=request.user.posted_jobs.all()
+        total_jobs=my_jobs.count()
+        total_applications = Application.objects.filter(
+    job__employer=request.user
+).count()
         return render(
             request,
-            'dashboards/employer_dashboard.html'
+            'dashboards/employer_dashboard.html',
+            {
+            'my_jobs':my_jobs,
+            'total_jobs':total_jobs,
+            'total_applications':total_jobs}
         )
 
     elif profile.role == 'job_seeker':
@@ -49,13 +58,16 @@ def dashboard(request):
      total_applications = Application.objects.filter(
         applicant=request.user
     ).count()
+     my_applications = Application.objects.filter(
+    applicant=request.user
+).order_by('-applied_at')
 
      return render(
     request,
     'dashboards/seeker_dashboard.html',
     {
         'total_jobs': total_jobs,
-        'total_applications': total_applications
+        'total_applications': total_applications,
+        'my_applications': my_applications,
     }
-)
-
+     )

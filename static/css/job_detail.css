@@ -1,0 +1,264 @@
+
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f5f9;
+    color: #1e293b;
+    line-height: 1.6;
+}
+
+/* Navbar */
+.detail-navbar {
+    background: white;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+    color: #2563eb;
+    font-size: 27px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #475569;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: #2563eb;
+}
+
+.signup-btn {
+    background: #2563eb;
+    color: white !important;
+    padding: 10px 18px;
+    border-radius: 7px;
+}
+
+.logout-form {
+    margin: 0;
+}
+
+.logout-form button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.logout-form button:hover,
+.signup-btn:hover {
+    background: #1d4ed8;
+}
+
+/* Main Container */
+.detail-container {
+    max-width: 1150px;
+    margin: 45px auto;
+    padding: 0 25px;
+}
+
+/* Job Header */
+.job-header {
+    background: linear-gradient(120deg, #1e40af, #3b82f6);
+    color: white;
+    padding: 40px;
+    border-radius: 14px;
+    margin-bottom: 30px;
+}
+
+.job-type {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.job-header h1 {
+    font-size: 34px;
+    margin-bottom: 8px;
+}
+
+.job-header h3 {
+    color: #dbeafe;
+    font-size: 18px;
+    margin-bottom: 22px;
+}
+
+.job-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.job-meta span {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 13px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* Main Layout */
+.detail-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+/* Content Cards */
+.job-content {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.content-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.content-card h2 {
+    color: #1e3a8a;
+    font-size: 22px;
+    margin-bottom: 18px;
+}
+
+.content-card p {
+    color: #64748b;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+/* Apply Sidebar */
+.apply-sidebar {
+    position: sticky;
+    top: 25px;
+}
+
+.apply-card {
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.apply-card h2 {
+    color: #1e3a8a;
+    margin-bottom: 25px;
+    font-size: 22px;
+}
+
+.overview-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 15px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.overview-item span {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.overview-item strong {
+    color: #334155;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+/* Buttons */
+.apply-button,
+.back-button {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    padding: 13px;
+    border-radius: 7px;
+    font-weight: bold;
+    margin-top: 18px;
+    transition: 0.3s;
+}
+
+.apply-button {
+    background: #2563eb;
+    color: white;
+}
+
+.apply-button:hover {
+    background: #1d4ed8;
+}
+
+.back-button {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.back-button:hover {
+    background: #dbeafe;
+}
+
+/* Responsive Design */
+@media (max-width: 750px) {
+    .detail-navbar {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .detail-container {
+        padding: 0 15px;
+        margin: 25px auto;
+    }
+
+    .job-header {
+        padding: 28px 22px;
+    }
+
+    .job-header h1 {
+        font-size: 26px;
+    }
+
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .apply-sidebar {
+        position: static;
+    }
+
+    .content-card {
+        padding: 23px;
+    }
+}

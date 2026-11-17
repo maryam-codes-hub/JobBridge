@@ -1,13 +1,106 @@
-<h2>Apply for {{ job.title }}</h2>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
+{% load static %}
 
-    <button type="submit">Submit Application</button>
-</form>
-{% if messages %}
-    {% for message in messages %}
-        <p>{{ message }}</p>
-    {% endfor %}
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Apply for {{ job.title }} - JobBridge</title>
+
+    <link rel="stylesheet" href="{% static 'css/apply.css' %}">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="apply-navbar">
+        <h2 class="logo">JobBridge</h2>
+
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'job_list' %}">Explore Jobs</a>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+        </div>
+    </nav>
+
+    <main class="apply-container">
+
+        <!-- Page Heading -->
+        <section class="page-heading">
+            <h1>Submit Your Application</h1>
+            <p>Take the next step towards your career goals.</p>
+        </section>
+
+        <div class="apply-layout">
+
+            <!-- Job Information -->
+            <section class="job-summary">
+
+                <span class="job-type">
+                    {{ job.get_job_type_display }}
+                </span>
+
+                <h2>{{ job.title }}</h2>
+
+                <h3>
+                    {{ job.employer.profile.company_name|default:job.employer.username }}
+                </h3>
+
+                <div class="job-info">
+                    <p>📍 {{ job.location }}</p>
+                    <p>💼 {{ job.category }}</p>
+                    <p>💰 {{ job.salary|default:"Not specified" }}</p>
+                </div>
+
+                <p class="summary-text">
+                    You are applying for this position.
+                    Make sure your cover letter explains why
+                    you are a suitable candidate.
+                </p>
+
+                <a href="{% url 'job_detail' id=job.id %}" class="back-link">
+                    Back to Job Details
+                </a>
+
+            </section>
+
+            <!-- Application Form -->
+            <section class="form-card">
+
+                <h2>Application Form</h2>
+
+                <p class="form-description">
+                    Introduce yourself to the employer through your cover letter.
+                </p>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="message {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="form-fields">
+                        {{ form.as_p }}
+                    </div>
+
+                    <button type="submit" class="submit-button">
+                        Submit Application
+                    </button>
+
+                </form>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

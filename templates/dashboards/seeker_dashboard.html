@@ -62,6 +62,42 @@
 
         </section>
 
+        <section class="applications-section">
+
+    <h2>My Applications</h2>
+
+    {% for application in my_applications %}
+
+        <div class="application-card">
+
+            <h3>{{ application.job.title }}</h3>
+
+            <p>
+                Company:
+                {{ application.job.employer.profile.company_name|default:application.job.employer.username }}
+            </p>
+
+            <p>
+                Applied On:
+                {{ application.applied_at|date:"d M Y" }}
+            </p>
+<p>
+    Status:
+    <span class="status-badge {{ application.status }}">
+        {{ application.get_status_display }}
+    </span>
+</p>
+
+        </div>
+
+    {% empty %}
+
+        <p>You haven't applied for any jobs yet.</p>
+
+    {% endfor %}
+
+</section>
+
         <!-- Explore Jobs -->
         <section class="explore-section">
             <div>

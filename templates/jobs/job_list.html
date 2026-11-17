@@ -1,89 +1,179 @@
 
+
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Browse Jobs - JobBridge</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Explore Jobs - JobBridge</title>
+
+    <link rel="stylesheet" href="{% static 'css/jobs.css' %}">
 </head>
+
 <body>
 
-    <h1>Browse Available Jobs</h1>
+    <!-- Navbar -->
+    <nav class="jobs-navbar">
+        <h2 class="logo">JobBridge</h2>
 
-<form method="GET" action="{% url 'job_list' %}">
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'job_list' %}">Explore Jobs</a>
 
-    <input
-        type="text"
-        name="title"
-        placeholder="Search job title"
-        value="{{ title }}"
-    >
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}">Dashboard</a>
 
-    <input
-        type="text"
-        name="location"
-        placeholder="Enter location"
-        value="{{ location }}"
-    >
-
-    <input
-        type="text"
-        name="category"
-        placeholder="Enter category"
-        value="{{ category }}"
-    >
-
-    <select name="job_type">
-
-        <option value="">All Job Types</option>
-
-        {% for value, label in job_types %}
-
-            <option
-                value="{{ value }}"
-                {% if job_type == value %}selected{% endif %}
-            >
-                {{ label }}
-            </option>
-
-        {% endfor %}
-
-    </select>
-
-    <button type="submit">Search Jobs</button>
-
-    <a href="{% url 'job_list' %}">Clear Filters</a>
-
-</form>
-
-
-    {% for job in jobs %}
- 
-
-        <div>
-            <h2>{{ job.title }}</h2>
-
-            <p>Company: {{ job.employer.profile.company_name }}</p>
-
-            <p>Location: {{ job.location }}</p>
-
-            <p>Category: {{ job.category }}</p>
-
-            <p>Job Type: {{ job.get_job_type_display }}</p>
-
-            <p>Salary: {{ job.salary }}</p>
-
-            <p>{{ job.description }}</p>
+                <form method="POST" action="{% url 'logout' %}" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'signup' %}" class="signup-btn">Sign Up</a>
+            {% endif %}
         </div>
-            <a href="{% url 'job_detail' id=job.id %}">
-    View Details
-</a>
+    </nav>
 
-        <hr>
+    <main class="jobs-container">
 
-    {% empty %}
+        <!-- Page Heading -->
+        <section class="jobs-heading">
+            <h1>Find Your Next Opportunity</h1>
+            <p>
+                Explore job opportunities and discover the right
+                career path for your future.
+            </p>
+        </section>
 
-        <p>No jobs are currently available.</p>
+        <!-- Search and Filter Section -->
+        <section class="search-section">
 
-    {% endfor %}
+            <h2>Search Jobs</h2>
+
+            <form method="GET" action="{% url 'job_list' %}" class="search-form">
+
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input
+                        type="text"
+                        name="title"
+                        placeholder="e.g. Python Developer"
+                        value="{{ title }}"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Location</label>
+                    <input
+                        type="text"
+                        name="location"
+                        placeholder="e.g. Lahore"
+                        value="{{ location }}"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <input
+                        type="text"
+                        name="category"
+                        placeholder="e.g. Software Engineering"
+                        value="{{ category }}"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Job Type</label>
+
+                    <select name="job_type">
+                        <option value="">All Job Types</option>
+
+                        {% for value, label in job_types %}
+                            <option
+                                value="{{ value }}"
+                                {% if job_type == value %}selected{% endif %}
+                            >
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+
+                    </select>
+                </div>
+
+                <div class="search-actions">
+                    <button type="submit">Search Jobs</button>
+                    <a href="{% url 'job_list' %}">Clear Filters</a>
+                </div>
+
+            </form>
+        </section>
+
+        <!-- Job Listings -->
+        <section class="job-listings">
+
+            <div class="section-heading">
+                <h2>Available Opportunities</h2>
+                <p>Explore jobs that match your interests and skills.</p>
+            </div>
+
+            <div class="jobs-grid">
+
+                {% for job in jobs %}
+
+                    <div class="job-card">
+
+                        <div class="job-card-top">
+                            <span class="job-type">
+                                {{ job.get_job_type_display }}
+                            </span>
+                        </div>
+
+                        <h3>{{ job.title }}</h3>
+
+                        <p class="company-name">
+                            {{ job.employer.profile.company_name|default:job.employer.username }}
+                        </p>
+
+                        <div class="job-info">
+                            <p>📍 {{ job.location }}</p>
+                            <p>💼 {{ job.category }}</p>
+                            <p>💰 {{ job.salary|default:"Not specified" }}</p>
+                        </div>
+
+                        <p class="job-description">
+                            {{ job.description|truncatewords:22 }}
+                        </p>
+
+                        <a
+                            href="{% url 'job_detail' id=job.id %}"
+                            class="details-button"
+                        >
+                            View Details
+                        </a>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="no-jobs">
+                        <h3>No Jobs Found</h3>
+                        <p>
+                            No jobs match your search.
+                            Try changing your search filters.
+                        </p>
+                        <a href="{% url 'job_list' %}">View All Jobs</a>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+    </main>
 
 </body>
 </html>

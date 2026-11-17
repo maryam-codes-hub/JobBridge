@@ -122,3 +122,19 @@ def apply_job(request, id):
         'form': form,
         'job': job
     })
+
+@login_required
+def job_applications(request, id):
+
+    job = get_object_or_404(Job, id=id)
+    if job.employer != request.user:
+     return redirect('dashboard')
+    applications = job.applications.all().order_by('-applied_at')
+    return render(
+    request,
+    'applications/job_applications.html',
+    {
+        'job': job,
+        'applications': applications
+    }
+)
