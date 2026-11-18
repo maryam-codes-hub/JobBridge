@@ -138,3 +138,48 @@ def job_applications(request, id):
         'applications': applications
     }
 )
+
+@login_required
+def post_job(request):
+
+    if request.method == 'POST':
+
+        title = request.POST.get('title')
+        category = request.POST.get('category')
+        location = request.POST.get('location')
+        job_type = request.POST.get('job_type')
+        salary = request.POST.get('salary')
+        description = request.POST.get('description')
+        requirements = request.POST.get('requirements')
+        deadline = request.POST.get('deadline')
+
+        Job.objects.create(
+            employer=request.user,
+            title=title,
+            category=category,
+            location=location,
+            job_type=job_type,
+            salary=salary,
+            description=description,
+            requirements=requirements,
+            deadline=deadline if deadline else None
+        )
+
+        return redirect('dashboard')
+
+    return render(request, 'jobs/post_job.html')
+@login_required
+def update_application_status(request, id):
+    application = get_object_or_404(Application, id=id)
+    if application.job.employer != request.user:
+     return redirect('dashboard')
+    if request.method == 'POST':
+
+     new_status = request.POST.get('status')
+    if new_status in dict(Application.STATUS_CHOICES):
+
+     application.status = new_status
+
+     application.save()
+     return redirect('job_applications', id=application.job.id)
+    return redirect('job_applications', id=application.job.id)

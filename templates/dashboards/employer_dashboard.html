@@ -20,16 +20,16 @@
 
         <h2 class="logo">JobBridge</h2>
 
-        <div class="nav-links">
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'job_list' %}">Explore Jobs</a>
-            <a href="{% url 'dashboard' %}" class="active">Dashboard</a>
+       <div class="nav-links">
+    <a href="{% url 'home' %}">Home</a>
+    <a href="#" class="post-job-btn">Post a Job</a>
+    <a href="{% url 'dashboard' %}" class="active">Dashboard</a>
 
-            <form method="POST" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit" class="logout-btn">Logout</button>
-            </form>
-        </div>
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">Logout</button>
+    </form>
+</div>
 
     </nav>
 

@@ -1,0 +1,82 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post a Job | JobBridge</title>
+    <link rel="stylesheet" href="{% static 'css/post_job.css' %}">
+</head>
+<body>
+
+    <div class="post-job-container">
+        <h1>Post a New Job</h1>
+        <p>Find the right candidate for your company.</p>
+
+        <div class="form-container">
+            <h2>Job Details</h2>
+   
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label for="title">Job Title</label>
+        <input type="text" id="title" name="title"
+               placeholder="e.g. Python Developer" required>
+    </div>
+
+    <div class="form-group">
+        <label for="category">Job Category</label>
+        <input type="text" id="category" name="category"
+               placeholder="e.g. Software Development" required>
+    </div>
+
+    <div class="form-group">
+        <label for="location">Job Location</label>
+        <input type="text" id="location" name="location"
+               placeholder="e.g. Islamabad" required>
+    </div>
+
+    <div class="form-group">
+        <label for="job_type">Job Type</label>
+        <select id="job_type" name="job_type" required>
+            <option value="">Select Job Type</option>
+            <option value="full_time">Full Time</option>
+            <option value="part_time">Part Time</option>
+            <option value="internship">Internship</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="salary">Salary</label>
+        <input type="text" id="salary" name="salary"
+               placeholder="e.g. 50,000 - 70,000 PKR">
+    </div>
+
+    <div class="form-group">
+        <label for="description">Job Description</label>
+        <textarea id="description" name="description"
+                  rows="5" placeholder="Describe the job..."
+                  required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="requirements">Requirements</label>
+        <textarea id="requirements" name="requirements"
+                  rows="5" placeholder="Mention required skills..."
+                  required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="deadline">Application Deadline</label>
+        <input type="date" id="deadline" name="deadline">
+    </div>
+
+    <button type="submit">Post Job</button>
+</form>
+
+        </div>
+    </div>
+
+</body>
+</html>

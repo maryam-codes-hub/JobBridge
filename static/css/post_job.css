@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f6fb;
+    color: #1e293b;
+}
+
+.post-job-container {
+    max-width: 850px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.post-job-container h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.post-job-container > p {
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+.form-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+}

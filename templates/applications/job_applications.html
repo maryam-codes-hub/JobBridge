@@ -1,46 +1,227 @@
+
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Job Applications - JobBridge</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>View Applications | JobBridge</title>
+
+    <link rel="stylesheet" href="{% static 'css/job_applications.css' %}">
 </head>
 
 <body>
 
-    <h1>Applications for {{ job.title }}</h1>
+    <div class="page-container">
 
-    <h3>
-        Company:
-        {{ job.employer.profile.company_name|default:job.employer.username }}
-    </h3>
+        <!-- Page Header -->
+        <header class="page-header">
 
-    {% for application in applications %}
+            <div>
+                <span class="page-label">EMPLOYER PORTAL</span>
+                <h1>Job Applications</h1>
+                <p>Review and manage candidates who applied for your job.</p>
+            </div>
 
-        <div class="application-card">
+            <a href="{% url 'dashboard' %}" class="back-btn">
+                ← Back to Dashboard
+            </a>
 
-            <h2>{{ application.applicant.username }}</h2>
+        </header>
 
-            <p>
-                Applied On:
-                {{ application.applied_at|date:"d M Y" }}
-            </p>
 
-            <p>
-                Status:
-                {{ application.get_status_display }}
-            </p>
+        <!-- Job Information -->
+        <section class="job-info">
 
-            <h4>Cover Letter</h4>
+            <div class="job-icon">💼</div>
 
-            <p>{{ application.cover_letter|linebreaks }}</p>
+            <div class="job-details">
+                <h2>{{ job.title }}</h2>
 
-        </div>
+                <p>
+                    {{ job.category }} 
+                    <span>•</span>
+                    {{ job.location }}
+                </p>
 
-    {% empty %}
+                <small>
+                    Company:
+                    {{ job.employer.profile.company_name|default:job.employer.username }}
+                </small>
+            </div>
 
-        <p>No applications received for this job yet.</p>
+            <div class="application-count">
+                <strong>{{ applications|length }}</strong>
+                <span>Total Applications</span>
+            </div>
 
-    {% endfor %}
+        </section>
+
+
+        <!-- Search Section -->
+        <section class="search-section">
+
+            <div>
+                <h2>Applicants</h2>
+                <p>Review candidate profiles and application details.</p>
+            </div>
+
+            <input
+                type="text"
+                id="applicantSearch"
+                placeholder="Search applicant..."
+            >
+
+        </section>
+
+
+        <!-- Applications List -->
+        <section class="applications-list">
+
+            {% for application in applications %}
+
+                <div class="application-card"
+                     data-applicant="{{ application.applicant.username|lower }}">
+
+                    <!-- Applicant Header -->
+                    <div class="applicant-header">
+
+                        <div class="applicant-avatar">
+                            {{ application.applicant.username|first|upper }}
+                        </div>
+
+                        <div class="applicant-info">
+                            <h3>{{ application.applicant.username }}</h3>
+
+                            <p>
+                                Applied on
+                                {{ application.applied_at|date:"d M Y" }}
+                            </p>
+                        </div>
+
+                        <span class="status-badge {{ application.status }}">
+                            {{ application.get_status_display }}
+                        </span>
+
+                    </div>
+
+
+                    <!-- Cover Letter -->
+                    <div class="cover-letter">
+
+                        <h4>Cover Letter</h4>
+
+                        <p>
+                            {{ application.cover_letter|linebreaks }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- Update Status -->
+                    <div class="status-section">
+
+                        <form method="POST"
+                              action="{% url 'update_application_status' application.id %}">
+
+                            {% csrf_token %}
+
+                            <div class="status-control">
+
+                                <div>
+                                    <label for="status-{{ application.id }}">
+                                        Update Application Status
+                                    </label>
+
+                                    <select
+                                        name="status"
+                                        id="status-{{ application.id }}"
+                                    >
+
+                                        <option value="pending"
+                                            {% if application.status == 'pending' %}selected{% endif %}>
+                                            Pending
+                                        </option>
+
+                                        <option value="shortlisted"
+                                            {% if application.status == 'shortlisted' %}selected{% endif %}>
+                                            Shortlisted
+                                        </option>
+
+                                        <option value="rejected"
+                                            {% if application.status == 'rejected' %}selected{% endif %}>
+                                            Rejected
+                                        </option>
+
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="update-btn">
+                                    Update Status
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <div class="empty-state">
+                    <div>📂</div>
+                    <h3>No Applications Yet</h3>
+                    <p>When candidates apply for this job, their applications will appear here.</p>
+                </div>
+
+            {% endfor %}
+
+            <div id="noSearchResults" class="empty-state" style="display: none;">
+                <h3>No Matching Applicants</h3>
+                <p>Try searching with another name.</p>
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- Applicant Search JavaScript -->
+    <script>
+        const searchInput = document.getElementById("applicantSearch");
+        const applicantCards = document.querySelectorAll(".application-card");
+        const noResults = document.getElementById("noSearchResults");
+
+        searchInput.addEventListener("input", function () {
+
+            const searchValue = this.value.toLowerCase();
+            let visibleCount = 0;
+
+            applicantCards.forEach(function (card) {
+
+                const applicantName = card.dataset.applicant;
+
+                if (applicantName.includes(searchValue)) {
+                    card.style.display = "block";
+                    visibleCount++;
+                } else {
+                    card.style.display = "none";
+                }
+
+            });
+
+            if (visibleCount === 0 && applicantCards.length > 0) {
+                noResults.style.display = "block";
+            } else {
+                noResults.style.display = "none";
+            }
+
+        });
+    </script>
 
 </body>
 </html>
