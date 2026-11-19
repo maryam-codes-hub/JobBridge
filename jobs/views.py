@@ -183,3 +183,50 @@ def update_application_status(request, id):
      application.save()
      return redirect('job_applications', id=application.job.id)
     return redirect('job_applications', id=application.job.id)
+
+
+
+@login_required
+def edit_job(request, id):
+
+    job = get_object_or_404(Job, id=id)
+
+    if job.employer != request.user:
+        return redirect('dashboard')
+
+    if request.method == 'POST':
+
+        job.title = request.POST.get('title')
+        job.category = request.POST.get('category')
+        job.location = request.POST.get('location')
+        job.job_type = request.POST.get('job_type')
+        job.salary = request.POST.get('salary')
+        job.description = request.POST.get('description')
+        job.requirements = request.POST.get('requirements')
+
+        deadline = request.POST.get('deadline')
+        job.deadline = deadline if deadline else None
+
+        job.save()
+
+        return redirect('dashboard')
+
+    return render(request, 'jobs/edit_job.html', {
+        'job': job
+    })
+
+@login_required
+def edit_application(request, id):
+
+    application = get_object_or_404(Application,id=id)
+    if application.applicant != request.user:
+        return redirect('dashboard')
+    if request.method=='POST':
+        application.cover_letter=request.POST.get('cover_letter')
+        application.save()
+        
+        return redirect('dashboard')
+
+    return render(request, 'applications/edit_application.html', {
+        'application': application
+    })

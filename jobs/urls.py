@@ -17,4 +17,12 @@ path(
     views.update_application_status,
     name='update_application_status'
 ),
+path(
+    'employer/edit-job/<int:id>/',
+    views.edit_job,
+    name='edit_job'
+),
+path(
+    'seeker/edit/<int:id>/',views.edit_application,name='edit_application'
+)
 ]
