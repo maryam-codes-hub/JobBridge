@@ -334,3 +334,90 @@ body {
         align-items: flex-start;
     }
 }
+```css
+/* Job Action Buttons */
+
+.application-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.application-count {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.job-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.job-actions form {
+    margin: 0;
+}
+
+.view-btn,
+.edit-btn,
+.delete-btn {
+    display: inline-block;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.view-btn {
+    background: #e8f0ff;
+    color: #356ae6;
+}
+
+.view-btn:hover {
+    background: #d6e4ff;
+}
+
+.edit-btn {
+    background: #fff3d6;
+    color: #a66b00;
+}
+
+.edit-btn:hover {
+    background: #ffe7ad;
+}
+
+.delete-btn {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.delete-btn:hover {
+    background: #fecaca;
+}
+
+@media (max-width: 600px) {
+    .application-info {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .job-actions {
+        width: 100%;
+    }
+
+    .job-actions form {
+        flex: 1;
+    }
+
+    .job-actions form button {
+        width: 100%;
+    }
+}

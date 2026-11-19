@@ -24,5 +24,16 @@ path(
 ),
 path(
     'seeker/edit/<int:id>/',views.edit_application,name='edit_application'
-)
+),
+path(
+    'seeker/delete/<int:id>/',
+    views.delete_application,
+    name='delete_application'
+),
+path(
+    'employer/delete/<int:id>/',
+    views.delete_job,
+    name='delete_job'
+),
 ]
+

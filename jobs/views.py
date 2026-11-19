@@ -230,3 +230,30 @@ def edit_application(request, id):
     return render(request, 'applications/edit_application.html', {
         'application': application
     })
+@login_required
+def delete_application(request, id):
+
+    application = get_object_or_404(Application, id=id)
+
+    if application.applicant != request.user:
+        return redirect('dashboard')
+
+    if request.method == 'POST':
+        application.delete()
+        return redirect('dashboard')
+
+    return redirect('dashboard')
+
+login_required
+def delete_job(request,id):
+
+    job= get_object_or_404(Job, id=id)
+
+    if job.employer != request.user:
+        return redirect('dashboard')
+
+    if request.method == 'POST':
+        job.delete()
+        return redirect('dashboard')
+
+    return redirect('dashboard')
