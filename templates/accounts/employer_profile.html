@@ -1,0 +1,119 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | JobBridge</title>
+
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <h2 class="logo">JobBridge</h2>
+
+        <a href="{% url 'dashboard' %}" class="back-btn">
+            Back to Dashboard
+        </a>
+    </nav>
+
+    <!-- Main Profile Section -->
+    <main class="profile-container">
+
+        <div class="profile-header">
+
+            <div class="profile-avatar">
+                {{ user_profile.user.first_name|first|upper }}
+            </div>
+
+            <h1>
+                {{ user_profile.user.first_name }}
+                {{ user_profile.user.last_name }}
+            </h1>
+
+            <p class="role">
+                {{ user_profile.get_role_display }}
+            </p>
+
+            <p class="username">
+                @{{ user_profile.user.username }}
+            </p>
+            <a href="{% url 'edit_employerprofile' %}" class="edit-btn">
+    Edit Profile
+</a>
+
+        </div>
+
+        <!-- Personal Information -->
+        <section class="info-section">
+
+            <h2>Personal Information</h2>
+
+            <div class="info-grid">
+
+                <div class="info-card">
+                    <label>First Name</label>
+                    <p>{{ user_profile.user.first_name|default:"Not provided" }}</p>
+                </div>
+
+                <div class="info-card">
+                    <label>Last Name</label>
+                    <p>{{ user_profile.user.last_name|default:"Not provided" }}</p>
+                </div>
+
+                <div class="info-card">
+                    <label>Username</label>
+                    <p>{{ user_profile.user.username }}</p>
+                </div>
+
+                <div class="info-card">
+                    <label>Email Address</label>
+                    <p>{{ user_profile.user.email|default:"Not provided" }}</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Contact Information -->
+        <section class="info-section">
+
+            <h2>Contact Information</h2>
+
+            <div class="info-grid">
+
+                <div class="info-card">
+                    <label>Phone Number</label>
+                    <p>{{ user_profile.phone|default:"Not provided" }}</p>
+                </div>
+
+                <div class="info-card">
+                    <label>Location</label>
+                    <p>{{ user_profile.location|default:"Not provided" }}</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Account Information -->
+        <section class="info-section">
+
+            <h2>Account Information</h2>
+
+            <div class="info-card">
+                <label>Account Type</label>
+                <p>{{ user_profile.get_role_display }}</p>
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

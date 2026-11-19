@@ -71,3 +71,48 @@ def dashboard(request):
         'my_applications': my_applications,
     }
      )
+
+@login_required
+def seeker_profile(request):
+    user_profile = request.user.profile
+
+    return render(request, 'accounts/seeker_profile.html', {
+        'user_profile': user_profile
+    })
+
+@login_required
+def employer_profile(request):
+    user_profile = request.user.profile
+
+    return render(request, 'accounts/employer_profile.html', {
+        'user_profile': user_profile
+    })
+
+@login_required
+def edit_profile(request):
+
+    user = request.user
+    user_profile = request.user.profile
+
+    if request.method == 'POST':
+
+        user.first_name = request.POST.get('first_name')
+        user.last_name = request.POST.get('last_name')
+        user.email = request.POST.get('email')
+
+        user_profile.phone = request.POST.get('phone')
+        user_profile.location = request.POST.get('location')
+
+        # Employer specific field
+        if user_profile.role == 'employer':
+            user_profile.company_name = request.POST.get('company_name')
+
+        user.save()
+        user_profile.save()
+
+        return redirect('profile')
+
+    return render(request, 'accounts/edit_profile.html', {
+        'user': user,
+        'user_profile': user_profile
+    })

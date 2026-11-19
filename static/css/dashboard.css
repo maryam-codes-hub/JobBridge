@@ -281,7 +281,6 @@ body {
     background: #fee2e2;
     color: #991b1b;
 }
-```css
 /* My Applications Section */
 
 .applications-section {
@@ -457,4 +456,15 @@ body {
         width: 100%;
         text-align: center;
     }
+}
+.profile-link {
+    color: #356ae6;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 9px 14px;
+    border-radius: 7px;
+}
+
+.profile-link:hover {
+    background: #e8f0ff;
 }

@@ -1,5 +1,4 @@
 
-```html
 {% load static %}
 
 <!DOCTYPE html>
@@ -30,6 +29,10 @@
             <a href="{% url 'dashboard' %}" class="active">
                 Dashboard
             </a>
+            <a href="{% url 'profile' %}" class="profile-link">
+                Profile
+    <!-- {{ user.first_name|default:user.username }} -->
+</a>
 
             <form method="POST"
                   action="{% url 'logout' %}"

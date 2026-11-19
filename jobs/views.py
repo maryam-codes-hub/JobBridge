@@ -244,7 +244,7 @@ def delete_application(request, id):
 
     return redirect('dashboard')
 
-login_required
+@login_required
 def delete_job(request,id):
 
     job= get_object_or_404(Job, id=id)

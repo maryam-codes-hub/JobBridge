@@ -24,6 +24,10 @@
     <a href="{% url 'home' %}">Home</a>
     <a href="#" class="post-job-btn">Post a Job</a>
     <a href="{% url 'dashboard' %}" class="active">Dashboard</a>
+       <a href="{% url 'profile' %}" class="profile-link">
+                Profile
+    <!-- {{ user.first_name|default:user.username }} -->
+</a>
 
     <form method="POST" action="{% url 'logout' %}">
         {% csrf_token %}
@@ -134,7 +138,7 @@
 
                         </div>
 
-```html
+
 <div class="application-info">
 
     <span class="application-count">
